@@ -55,15 +55,15 @@ document.getElementById("draw").addEventListener("click", function () {
 });
 
 // Обработчик кнопки сброса игры
-// document.getElementById("reset").addEventListener("click", function () {
-//   remainingParticipants = [...participants];
-//   clickedParticipants = {}; // Сброс состояния для всех участников
-//   localStorage.removeItem("remainingParticipants");
-//   localStorage.removeItem("clickedParticipants");
+document.getElementById("reset").addEventListener("click", function () {
+  remainingParticipants = [...participants];
+  clickedParticipants = {}; // Сброс состояния для всех участников
+  localStorage.removeItem("remainingParticipants");
+  localStorage.removeItem("clickedParticipants");
 
-//   document.getElementById("result").textContent = "Игра сброшена. Начните заново.";
-//   updateRemainingList();
-// });
+  document.getElementById("result").textContent = "Игра сброшена. Начните заново.";
+  updateRemainingList();
+});
 
 // Инициализация отображения
 updateRemainingList();
