@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- web site icon -->
-    <link rel="website icon" href="./assest/img/santa.jpg" />
-    <!-- css link -->
-    <link rel="stylesheet" href="./assest/css/style.css" />
-    <!-- bootstarp 5 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <title>Secret Santa</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Secret Santa</h1>
-      <div>
-        <button id="draw" class="btn btn-danger">Кто получит подарок?</button>
-        <!-- <button id="reset">Сбросить игру</button> -->
-      </div>
-      <h2>Результат:</h2>
-      <p id="result">Нажмите кнопку, чтобы выбрать получателя подарка.</p>
-      <h3>Оставшиеся участники:</h3>
-      <ol id="remaining"></ol>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- web site icon -->
+   <link rel="website icon" href="./assest/img/santa.jpg">
+  <title>Secret Santa</title>
+</head>
+<body>
+  <h1>Secret Santa</h1>
 
-    <script src="./assest/js/app.js"></script>
-  </body>
+  <!-- Кнопки для игры -->
+  <div>
+    <button id="draw">Кто получит подарок?</button>
+    <!-- <button id="reset">Сбросить игру</button> -->
+  </div>
+
+  <h2>Результат:</h2>
+  <p id="result">Нажмите кнопку, чтобы выбрать получателя подарка.</p>
+  <h3>Оставшиеся участники:</h3>
+  <ol id="remaining"></ol>
+
+  <script src="./assest/js/app.js"></script>
+</body>
 </html>

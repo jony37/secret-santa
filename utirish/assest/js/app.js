@@ -1,27 +1,11 @@
 const participants = [
-  "Жонпулат",
-  "Асадбек",
-  "Улугбек",
-  "Мухаммад",
-  "Бобур",
-  "Зарина",
-  "Вова",
-  "Дилнаво",
-  "Мехрибон",
-  "Бехруз",
-  "Аброр",
-  "Озодбек",
-  "Отабек",
-  "Нодир",
-  "Жахон",
-  "Муниса",
+  "Жонпулат", "Асадбек", "Улугбек", "Мухаммад", "Бобур", "Зарина", 
+  "Вова", "Дилнаво", "Мехрибон", "Бехруз", "Аброр", "Озодбек", 
+  "Отабек", "Нодир", "Жахон", "Муниса"
 ];
 
-// Инициализация: загружаем из localStorage или создаём новый список
-let remainingParticipants = JSON.parse(
-  localStorage.getItem("remainingParticipants")
-) || [...participants];
-let clicked = JSON.parse(localStorage.getItem("clicked")) || false; // Флаг для блокировки кнопки
+let remainingParticipants = JSON.parse(localStorage.getItem("remainingParticipants")) || [...participants];
+let clickedParticipants = JSON.parse(localStorage.getItem("clickedParticipants")) || {}; // Состояние для каждого участника
 
 // Функция обновления оставшихся участников
 function updateRemainingList() {
@@ -34,31 +18,27 @@ function updateRemainingList() {
   });
 
   // Сохраняем обновлённый список в localStorage
-  localStorage.setItem(
-    "remainingParticipants",
-    JSON.stringify(remainingParticipants)
-  );
-}
-
-// Отключение кнопки для предотвращения повторного нажатия
-function disableButton() {
-  document.getElementById("draw").disabled = true;
-  clicked = true;
-  localStorage.setItem("clicked", JSON.stringify(clicked));
-}
-
-// Восстановление состояния кнопки при загрузке страницы
-function restoreButtonState() {
-  if (clicked) {
-    document.getElementById("draw").disabled = true;
-  }
+  localStorage.setItem("remainingParticipants", JSON.stringify(remainingParticipants));
 }
 
 // Обработчик кнопки выбора участника
 document.getElementById("draw").addEventListener("click", function () {
+  // Проверяем, кто нажимает кнопку
+  const currentUser = prompt("Введите ваше имя:");
+
+  if (!currentUser) {
+    alert("Имя не введено!");
+    return;
+  }
+
+  // Проверка, что участник еще не нажимал кнопку
+  if (clickedParticipants[currentUser]) {
+    alert("Вы уже нажимали кнопку!");
+    return;
+  }
+
   if (remainingParticipants.length === 0) {
     document.getElementById("result").textContent = "Все подарки розданы!";
-    disableButton();
     return;
   }
 
@@ -66,27 +46,24 @@ document.getElementById("draw").addEventListener("click", function () {
   const chosenName = remainingParticipants[randomIndex];
   remainingParticipants.splice(randomIndex, 1);
 
-  document.getElementById(
-    "result"
-  ).textContent = `Получатель подарка: ${chosenName}`;
+  document.getElementById("result").textContent = `Получатель подарка: ${chosenName}`;
+  clickedParticipants[currentUser] = true; // Помечаем, что участник нажал кнопку
   updateRemainingList();
 
-  // Отключаем кнопку после нажатия
-  disableButton();
+  // Сохраняем состояние в localStorage
+  localStorage.setItem("clickedParticipants", JSON.stringify(clickedParticipants));
 });
 
 // Обработчик кнопки сброса игры
 // document.getElementById("reset").addEventListener("click", function () {
 //   remainingParticipants = [...participants];
-//   clicked = false;
+//   clickedParticipants = {}; // Сброс состояния для всех участников
 //   localStorage.removeItem("remainingParticipants");
-//   localStorage.removeItem("clicked");
-//   document.getElementById("draw").disabled = false;
-//   document.getElementById("result").textContent =
-//     "Игра сброшена. Начните заново.";
+//   localStorage.removeItem("clickedParticipants");
+
+//   document.getElementById("result").textContent = "Игра сброшена. Начните заново.";
 //   updateRemainingList();
 // });
 
 // Инициализация отображения
 updateRemainingList();
-restoreButtonState();
